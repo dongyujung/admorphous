@@ -1,5 +1,6 @@
 """
-Converts the csv file to a stream of JSON, sends to Kafka topic.
+Converts csv file to a stream of JSON, sends to Kafka topic.
+Input arguments: script, input csv path, topic name, bootstrap servers
 """
 # Import packages
 import sys
@@ -32,7 +33,7 @@ with open(input_file_path, 'r', encoding='utf-8') as file:
 
     for row in file_reader:
         n = file_reader.line_num - 1   # Starts at 1
-        if n > 5:
+        if n > 100:
             break
 
         producer.send(topic_name, value=row)
