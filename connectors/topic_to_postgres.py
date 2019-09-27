@@ -6,11 +6,12 @@ Input arguments: script, table name, topic name, bootstrap servers
 import sys
 from kafka import KafkaConsumer
 import psycopg2
-from json
+import json
 import config
 
 topic_name = "platform"
-query = "INSERT INTO items VALUES (?, ?)"
+table = 'test'
+query = "INSERT INTO ? (?, ?, ?) VALUES (?, ?, ?)"
 bootstrap_server_list = ["10.0.0.9:9092"]
 usr = config.username
 pwrd = config.password
@@ -37,7 +38,7 @@ consumer = KafkaConsumer(
 
 for message in consumer:
 
-    cursor.execute(query, (message['platform'], message['count']))
+    cursor.execute(query, (table, 'platform', 'count', 'created_on',  message['platform'], message['count'], 'now'))
 
     print(message)
 
