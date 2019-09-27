@@ -16,15 +16,13 @@ bootstrap_server_list = ["10.0.0.9:9092"]
 usr = config.username
 pwrd = config.password
 
-try:
-    connection = psycopg2.connect(user=usr,
-                                  password=pwrd,
-                                  host="10.0.0.5",
-                                  port="5432",
-                                  database="postgres")
 
-except:
-    print("I am unable to connect to the database")
+connection = psycopg2.connect(user=usr,
+                              password=pwrd,
+                              host="10.0.0.5",
+                              port="5432",
+                              database="postgres")
+
 
 cursor = connection.cursor()
 
