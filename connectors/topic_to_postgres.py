@@ -36,7 +36,8 @@ consumer = KafkaConsumer(
 
 for message in consumer:
 
-    cursor.execute(query, (table, 'platform', 'count', 'created_on',  message['platform'], message['count'], 'now'))
+    cursor.execute(query, (table, 'platform', 'count', 'created_on',
+                           message['platform'], message['count'], 'current_timestamp'))
 
     print(message)
 
