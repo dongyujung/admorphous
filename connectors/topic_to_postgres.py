@@ -5,19 +5,27 @@ Input arguments: script, table name, topic name, bootstrap servers
 # Packages
 import sys
 from kafka import KafkaConsumer
+import psycopg2
 from json
+import config
 
-# Shell script input arguments
-args = sys.argv
+topic_name = "platform"
+query = "INSERT INTO items VALUES (?, ?)"
+bootstrap_server_list = ["10.0.0.9:9092"]
+usr = config.username
+pwrd = config.password
 
-# There should be four or more input arguments:
-# script, table name, topic name, bootstrap servers
-if len(args) >= 4:
-    table_name = args[1]
-    topic_name = args[2]
-    bootstrap_server_list = args[3:]
-else:
-    raise Exception('Need at least four input arguments.')
+try:
+    connection = psycopg2.connect(user=usr,
+                                  password=pwrd,
+                                  host="10.0.0.5",
+                                  port="5432",
+                                  database="postgres_db")
+    cursor = connection.cursor()
+except:
+    print("I am unable to connect to the database")
+
+
 
 consumer = KafkaConsumer(
     topic_name,
@@ -29,4 +37,11 @@ consumer = KafkaConsumer(
 
 for message in consumer:
 
+    cursor.execute(query, (message['platform'], message['count']))
+
     print(message)
+
+if (connection):
+    cursor.close()
+    connection.close()
+    print("PostgreSQL connection is closed \n")
