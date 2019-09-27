@@ -38,8 +38,7 @@ consumer = KafkaConsumer(
 )
 
 for message in consumer:
-    print(message)
-    inbound_dict = json.loads(message)
+    inbound_dict = json.loads(message.value)
     cursor.execute(query.format(message['platform'], message['count'], datetime.now(timezone.utc)))
 
 
