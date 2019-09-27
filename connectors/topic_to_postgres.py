@@ -8,10 +8,11 @@ from kafka import KafkaConsumer
 import psycopg2
 import json
 import config
+import datetime
 
 topic_name = "platform"
 table = 'test'
-query = "INSERT INTO ? (?, ?, ?) VALUES (?, ?, ?)"
+query = "INSERT INTO {} ('platform', 'count', 'created_on') VALUES (?, ?, ?)"
 bootstrap_server_list = ["10.0.0.9:9092"]
 usr = config.username
 pwrd = config.password
@@ -32,14 +33,14 @@ consumer = KafkaConsumer(
     auto_offset_reset='earliest',
     enable_auto_commit=True,
     group_id='my-group',
-    value_deserializer=lambda x: json.loads(x.decode('utf-8')))
+    value_deserializer=lambda x: json.loads.decode('utf-8'))
 
 for message in consumer:
-
-    cursor.execute(query, (table, 'platform', 'count', 'created_on',
-                           message['platform'], message['count'], 'current_timestamp'))
-
     print(message)
+    inbound_dict = json.loads(message)
+    cursor.execute(query.format(message['platform'], message['count'], datetime.now(timezone.utc)))
+
+
 
 if (connection):
     cursor.close()
