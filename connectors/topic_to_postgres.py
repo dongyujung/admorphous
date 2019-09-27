@@ -10,9 +10,10 @@ import json
 import config
 import datetime
 
+
 topic_name = "platform"
 table = 'test'
-query = "INSERT INTO {} ('platform', 'count', 'created_on') VALUES (?, ?, ?)"
+query = "INSERT INTO test ('platform', 'count', 'created_on') VALUES (?, ?, ?)"
 bootstrap_server_list = ["10.0.0.9:9092"]
 usr = config.username
 pwrd = config.password
@@ -33,7 +34,7 @@ consumer = KafkaConsumer(
     auto_offset_reset='earliest',
     enable_auto_commit=True,
     group_id='my-group',
-    value_deserializer=lambda x: json.loads.decode('utf-8'))
+    value_deserializer=lambda x: json.loads(x.decode('utf-8'))
 
 for message in consumer:
     print(message)
