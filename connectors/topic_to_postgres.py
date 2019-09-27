@@ -43,7 +43,7 @@ for message in consumer:
     inbound_dict = message.value
     print(inbound_dict)
     cursor.execute(query.format(inbound_dict['PLATFORM'], inbound_dict['COUNT'],
-                                datetime.now(timezone.utc)))
+                                datetime.now()))
 
 
 
