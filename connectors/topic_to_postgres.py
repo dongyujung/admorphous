@@ -8,7 +8,8 @@ from kafka import KafkaConsumer
 import psycopg2
 import json
 import config
-import datetime
+from datetime import datetime
+from datetime import timezone
 
 
 topic_name = "platform"
@@ -42,7 +43,7 @@ for message in consumer:
     inbound_dict = message.value
     print(inbound_dict)
     cursor.execute(query, (inbound_dict['PLATFORM'], inbound_dict['COUNT'],
-                                datetime.now(datetime.timezone.utc)))
+                                datetime.now(timezone.utc)))
 
 
 
