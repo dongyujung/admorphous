@@ -22,11 +22,11 @@ try:
                                   host="10.0.0.5",
                                   port="5432",
                                   database="postgres")
-    cursor = connection.cursor()
+
 except:
     print("I am unable to connect to the database")
 
-
+cursor = connection.cursor()
 
 consumer = KafkaConsumer(
     topic_name,
