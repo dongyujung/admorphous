@@ -41,7 +41,7 @@ for message in consumer:
 
     inbound_dict = message.value
     print(inbound_dict)
-    cursor.execute(query.format(inbound_dict['platform'], inbound_dict['count'],
+    cursor.execute(query, (inbound_dict['platform'], inbound_dict['count'],
                                 datetime.now(timezone.utc)))
 
 
