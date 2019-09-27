@@ -14,7 +14,7 @@ from datetime import timezone
 
 topic_name = "platform"
 table = 'test'
-query = "INSERT INTO test (platform, count, created_on) VALUES ({}, {}, {:s})"
+query = "INSERT INTO test (platform, count, created_on) VALUES ({}, {}, (%s));"
 bootstrap_server_list = ["10.0.0.9:9092"]
 usr = config.username
 pwrd = config.password
@@ -43,7 +43,7 @@ for message in consumer:
     inbound_dict = message.value
     print(inbound_dict)
     cursor.execute(query.format(inbound_dict['PLATFORM'], inbound_dict['COUNT'],
-                                datetime.now()))
+                                datetime.now())
 
 
 
