@@ -18,7 +18,7 @@ page_view_topic = app.topic('test', value_type=PageView)
 
 page_views_table = app.Table('page_views', default=int)
 
-@app.agent(pageview_topic)
+@app.agent(page_view_topic)
 async def count_page_views(views):
     async for view in views.group_by(PageView.platform):
         page_views_table[view.platform] += 1
