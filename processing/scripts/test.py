@@ -34,7 +34,7 @@ async def count_page_views(views):
         #platform_table["platform"] = view.platform
         #platform_table["count"] += 1
         platform_table[view.platform] += 1
-        platform_topic[PlatformCount.platform] = view.platform
-        platform_topic[PlatformCount.count] = platform_table[view.platform]
+        platform_topic["platform"] = view.platform
+        platform_topic["count"] = platform_table[view.platform]
 
 
