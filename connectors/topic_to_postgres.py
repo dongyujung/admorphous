@@ -44,6 +44,7 @@ for message in consumer:
     print(inbound_dict)
     cursor.execute(query, (inbound_dict['PLATFORM'], inbound_dict['COUNT'],
                            datetime.now()))
+    connection.commit()
 
 
 
