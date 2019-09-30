@@ -18,7 +18,7 @@ bootstrap_server_list = ["10.0.0.9:9092"]
 usr = config.username
 pwrd = config.password
 
-query = "INSERT INTO test (platform, count, created_on) VALUES ((%s, %s, %s));"
+query = "INSERT INTO test (platform, count, created_on) VALUES (%s, %s, %s));"
 
 connection = psycopg2.connect(user=usr,
                               password=pwrd,
