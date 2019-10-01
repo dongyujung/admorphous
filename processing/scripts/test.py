@@ -22,7 +22,7 @@ class PlatformCount(faust.Record):
     count: int
 
 
-page_view_topic = app.topic('test', value_type=PageView)
+page_view_topic = app.topic('upstream', value_type=PageView)
 
 platform_table = app.Table('platform_table', default=PlatformCount)
 
