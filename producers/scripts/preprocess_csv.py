@@ -42,4 +42,4 @@ df.loc[nrow-1,'dt'] = 0
 df['dt'] = df['dt'].astype('int')
 
 # Save file to csv
-df.to_csv(output_file_path)
+df.to_csv(output_file_path, index_label="pvid")
