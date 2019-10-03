@@ -11,10 +11,15 @@ import config
 from datetime import datetime
 from datetime import timezone
 
-
+# Kafka settings
 topic_name = "platform"
-table = 'test'
 bootstrap_server_list = ["10.0.0.9:9092"]
+
+# Postgres settings
+table = 'test'
+db_host_ip = "10.0.0.5"
+db_port = "5432"
+db_type = "postgres"
 usr = config.username
 pwrd = config.password
 
@@ -31,10 +36,9 @@ query = "INSERT INTO test (platform, count, created_on) VALUES (%s, %s, %s);"
 
 connection = psycopg2.connect(user=usr,
                               password=pwrd,
-                              host="10.0.0.5",
-                              port="5432",
-                              database="postgres")
-
+                              host=db_host_ip,
+                              port=db_port,
+                              database=db_type)
 
 cursor = connection.cursor()
 
@@ -47,7 +51,6 @@ for message in consumer:
     cursor.execute(query, (inbound_dict['PLATFORM'], inbound_dict['COUNT'],
                            datetime.now()))
     connection.commit()
-
 
 
 if (connection):
