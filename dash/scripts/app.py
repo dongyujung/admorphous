@@ -50,7 +50,7 @@ app.layout = html.Div(children=[
     )
 ])
 
-go.Scatter(x=)
+go.Scatter(x)
 
 
 def create_time_series(dff, axis_type, title):

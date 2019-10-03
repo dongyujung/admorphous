@@ -13,32 +13,19 @@ connection = None
 cursor = None
 
 try:
-    print("1")
-    """
-    connection = psycopg2.connect(user=usr,
-                                  password=pwrd,
-                                  host=db_host_ip,
-                                  port=db_port,
-                                  database=db_type)s
-    """
     connection = psycopg2.connect(user=usr,
                                   password=pwrd,
                                   host=db_host_ip,
                                   port=db_port,
                                   database=db_type)
-    print("2")
     cursor = connection.cursor()
-    print(3)
     query1 = "SELECT id, count FROM test WHERE platform = 2;"
-    print(4)
     cursor.execute(query1)
-    print(5)
     rows = cursor.fetchall()
-    print(6)
-    print(rows)
 
-    connection.commit()
-    print(7)
+    (id, count) = zip(*rows)
+    print(id)
+    print(count)
 except Exception as e:
     print(e)
 finally:
