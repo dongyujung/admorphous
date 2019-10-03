@@ -42,9 +42,9 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 trace_1 = go.Scatter(
-    x = pvid, y = count,
-    name = 'counts',
-    line = {width = 2, color = 'rgb(229, 151, 50)'}
+    x=pvid, y=count,
+    name='counts',
+    line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
 layout = go.Layout(title = 'Pageview Counts',
                    hovermode = 'closest')
