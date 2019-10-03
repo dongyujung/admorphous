@@ -17,8 +17,7 @@ connection = psycopg2.connect(user=usr,
 
 cursor = connection.cursor()
 
-query1 = "SELECT id, count FROM test " \
-         "WHERE platform = 2;"
+query1 = "SELECT id, count FROM test WHERE platform = 2;"
 
 result = cursor.execute(query1)
 rows = result.fetchall()
