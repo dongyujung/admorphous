@@ -23,7 +23,7 @@ try:
     cursor.execute(query1)
     rows = cursor.fetchall()
 
-    (id, count) = zip(*rows)
+    [id, count] = map(list, zip(*rows))
     print(id)
     print(count)
 except Exception as e:
