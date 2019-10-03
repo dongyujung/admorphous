@@ -20,7 +20,7 @@ cursor = connection.cursor()
 query1 = "SELECT id, count FROM test " \
          "WHERE platform = 2;"
 
-result = cursor.execute(query)
+result = cursor.execute(query1)
 rows = result.fetchall()
 print(rows)
 
