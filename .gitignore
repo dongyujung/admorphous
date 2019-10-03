@@ -1,3 +1,4 @@
 venv/
 .idea/
-connectors/config.py
+./connectors/config.py
+./dash/scripts/config.py
