@@ -4,19 +4,20 @@ Sends batches of mapping when signaled from event stream.
 ...
 """
 # Import packages
-import sys
+#import sys
 import csv
 import json
 import itertools
 #from time import sleep
-#from kafka import KafkaProducer
+from kafka import KafkaProducer
 
-#bootstrap_server_list
 
-def send_mapping(start_line,
+def send_mapping(bootstrap_server_list, start_line,
                  start_display_id, dump_size):
     """
 
+    :param start_line:
+    :param start_display_id:
     :param bootstrap_server_list:
     :param current_display_id:
     :param dump_size:
@@ -31,7 +32,7 @@ def send_mapping(start_line,
     producer = KafkaProducer(bootstrap_servers=bootstrap_server_list,
                              value_serializer=lambda x:
                              json.dumps(x).encode('utf-8'))
-    """
+                             """
 
     # Send JSON stream to topic with no sleep time
     with open(input_file_path, 'r', encoding='utf-8') as file:
@@ -46,12 +47,10 @@ def send_mapping(start_line,
             line_display_id = int(row['display_id'])
             if line_display_id > last_display_id:
                 line_number = file_reader.line_num
-                print(line_number, line_display_id)
+                #print(line_number, line_display_id)
                 return line_number, line_display_id
 
             print(row)
+            #producer.send('display_ad', value=row)
 
-            #producer.send(topic_name, value=row)
 
-
-send_mapping(150, 10, 50)
