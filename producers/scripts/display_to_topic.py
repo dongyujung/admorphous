@@ -14,7 +14,7 @@ import itertools
 #bootstrap_server_list
 
 def send_mapping(start_line,
-                 current_display_id, dump_size):
+                 start_display_id, dump_size):
     """
 
     :param bootstrap_server_list:
@@ -23,7 +23,7 @@ def send_mapping(start_line,
     :return:
     line_number
     """
-    last_display_id = current_display_id + dump_size
+    last_display_id = start_display_id + dump_size
     input_file_path = '../data/processed/display_ad.csv'
 
     # Set up Kafka Producer
@@ -43,13 +43,15 @@ def send_mapping(start_line,
             # Stop iteration if display_id higher than expected
             # and send line number back to events producer
             # for reference in next batch
-            if int(row['display_id']) > last_display_id:
+            line_display_id = int(row['display_id'])
+            if line_display_id > last_display_id:
                 line_number = file_reader.line_num
-                return line_number
+                print(line_number, line_display_id)
+                return line_number, line_display_id
 
             print(row)
 
             #producer.send(topic_name, value=row)
 
 
-send_mapping(5, 5, 10)
+send_mapping(150, 10, 50)
