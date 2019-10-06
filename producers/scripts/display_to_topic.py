@@ -24,7 +24,7 @@ def send_mapping(start_line,
     line_number
     """
     last_display_id = current_display_id + dump_size
-    input_file_path = '../data/processsed/display_ad.csv'
+    input_file_path = '../data/processed/display_ad.csv'
 
     # Set up Kafka Producer
     """
