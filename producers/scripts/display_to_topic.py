@@ -43,7 +43,7 @@ def send_mapping(start_line,
             # Stop iteration if display_id higher than expected
             # and send line number back to events producer
             # for reference in next batch
-            if row['display_id'] > last_display_id:
+            if int(row['display_id']) > last_display_id:
                 line_number = file_reader.line_num
                 return line_number
 
