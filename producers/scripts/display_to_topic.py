@@ -24,7 +24,7 @@ def send_mapping(bootstrap_server_list, start_line,
     :return:
     line_number
     """
-    last_display_id = start_display_id + dump_size
+    last_display_id = start_display_id + dump_size -1
     input_file_path = '../data/processed/display_ad.csv'
 
     # Set up Kafka Producer
