@@ -3,8 +3,17 @@
 ----------------------------------------------------------------
 
 -- Source stream
-CREATE STREAM upstream (pvid int,  uuid varchar, document_id varchar, timestamp int, platform string)
-	with (KAFKA_TOPIC='pageviews', VALUE_FORMAT='JSON');
+CREATE STREAM upstream (
+    pvid int,
+    uuid varchar,
+    document_id varchar,
+    timestamp int,
+    platform string
+    )
+	with (
+	    KAFKA_TOPIC='pageviews',
+	    VALUE_FORMAT='JSON'
+);
 
 -- Pageview count of each document for each tumbling window
 -- Group by document_id and count pageviews in a tumbling window

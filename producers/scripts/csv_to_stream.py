@@ -31,9 +31,8 @@ with open(input_file_path, 'r', encoding='utf-8') as file:
     # Csv reader iterator
     file_reader = csv.DictReader(file)
 
-    for row in file_reader:
-        n = file_reader.line_num - 1   # Starts at 1
-        if n % 100 == 0:
+    for i, row in enumerate(file_reader):
+        if i % 100 == 0:
             input("Press Enter to continue...")
 
 
