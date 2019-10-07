@@ -26,17 +26,17 @@ else:
     raise Exception('Need at least four input arguments.')
 """
 bootstrap_server_list = ['localhost:9092']
-events_file_path = '../data/processed/events.csv'
-display_file_path = '../data/processed/display_ad.csv'
-events_topic_name = 'events'
+pageviews_file_path = '../data/processed/page_views_sample_processed.csv'
+pageviews_topic_name = 'pageviews'
+sleep_time = 1  # in secs
 
 
-def send_events(bootstrap_server_list,
-                events_file_path,
-                display_file_path,
-                topic_name,
-                sleep_time,
-                dump_size):
+def send_pageviews(
+        bootstrap_server_list,
+        input_file_path,
+        topic_name,
+        sleep_time
+):
     """
 
     :param bootstrap_server_list:
@@ -47,30 +47,16 @@ def send_events(bootstrap_server_list,
                              value_serializer=lambda x:
                              json.dumps(x).encode('utf-8'))
 
-    start_line, start_display_id = 1, 1
-    line_number, line_display_id = display.send_mapping(bootstrap_server_list,
-                                                        display_file_path,
-                                                        start_line,
-                                                        start_display_id,
-                                                        dump_size)
-
     # Send JSON stream to topic
-    with open(events_file_path, 'r', encoding='utf-8') as file:
+    with open(input_file_path, 'r', encoding='utf-8') as file:
         # Csv reader iterator
         file_reader = csv.DictReader(file)
 
         for i, row in enumerate(file_reader):
-
-            if i % dump_size == 0:
-                line_number, line_display_id = display.send_mapping(bootstrap_server_list, display_file_path,
-                                                                    line_number,
-                                                                    line_display_id, dump_size)
-                #input("Press Enter to continue...")
-
             if i == 5000:
                 break
 
-            row['event_time'] = (datetime.now() - timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S')
+            row['pageview_time'] = (datetime.now() - timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S')
             row['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             print(row)
@@ -79,4 +65,4 @@ def send_events(bootstrap_server_list,
             sleep(sleep_time)
 
 
-send_events(bootstrap_server_list, events_file_path, display_file_path, events_topic_name, 0.5, 10)
+send_pageviews(bootstrap_server_list, pageviews_file_path, pageviews_topic_name, sleep_time)
