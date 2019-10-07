@@ -2,8 +2,7 @@
 
 In this project, I have utilized an API-style stream processing
 framework on top of Kafka, integrating both ingestion and stream 
-processing into a single framework.  
-The purpose is to build a reactive and scalable pipeline for advertisements.  
+processing into a single framework to build a reactive and scalable pipeline for advertisements.  
 The data used is the ["Outbrain Click Prediction"](https://www.kaggle.com/c/outbrain-click-prediction/data) data from Kaggle.  
 
 ![alt text](./images/data.png "data")  
@@ -17,12 +16,16 @@ The following image depicts the pros and cons of using Kafka streams for this pu
 
 ![alt text](./images/structure5.png "structure")  
 
-The repository is organized so that files of each part of the system are in each directory. The parts are:  
+In this project, I have used Confluent's KSQL, a wrapper around Kafka streams for the stream processing.
+It is a simple SQL-like language with a low learning curve, 
+perfect for cases where the implementing function is fairly simple, and developer time is limited.   
 
-- Producers  
+The repository is organized so that files of each part of the system are in their own directories. The parts are:  
+
+- Producer  
 - Kafka Cluster  
 - KSQL  
-- DB  
+- Database  
 - Dashboard  
 
 
