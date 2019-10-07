@@ -2,3 +2,5 @@ venv/
 .idea/
 ./connectors/config.py
 ./dash/scripts/config.py
+./kstreams/
+./processing/
