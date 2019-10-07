@@ -7,6 +7,7 @@ import sys
 import csv
 import json
 from time import sleep
+from datetime import datetime
 from kafka import KafkaProducer
 import display_to_topic as display
 
@@ -39,6 +40,7 @@ def send_events(bootstrap_server_list, sleep_time, dump_size):
                              json.dumps(x).encode('utf-8'))
                              """
 
+
     start_line, start_display_id = 1, 1
     line_number, line_display_id = display.send_mapping(bootstrap_server_list, start_line,
                                                         start_display_id, dump_size)
@@ -55,13 +57,15 @@ def send_events(bootstrap_server_list, sleep_time, dump_size):
                                                                     line_display_id, dump_size)
                 #input("Press Enter to continue...")
 
-            if i == 1000:
+            if i == 5000:
                 break
+
+            row['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             print(i)
             print(row)
 
-            #producer.send(topic_name, value=row)
+            #producer.send('events', value=row)
             sleep(sleep_time)
 
 send_events(1, 0.5, 10)

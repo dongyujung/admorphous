@@ -9,6 +9,7 @@ import csv
 import json
 import itertools
 #from time import sleep
+from datetime import datetime
 from kafka import KafkaProducer
 
 
@@ -34,6 +35,7 @@ def send_mapping(bootstrap_server_list, start_line,
                              json.dumps(x).encode('utf-8'))
                              """
 
+
     # Send JSON stream to topic with no sleep time
     with open(input_file_path, 'r', encoding='utf-8') as file:
         # Csv reader iterator
@@ -47,8 +49,9 @@ def send_mapping(bootstrap_server_list, start_line,
             line_display_id = int(row['display_id'])
             if line_display_id > last_display_id:
                 line_number = file_reader.line_num
-                #print(line_number, line_display_id)
                 return line_number, line_display_id
+
+            row['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             print(row)
             #producer.send('display_ad', value=row)
