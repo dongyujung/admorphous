@@ -51,7 +51,7 @@ def send_mapping(bootstrap_server_list, start_line,
                 line_number = file_reader.line_num
                 return line_number, line_display_id
 
-            row['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            row['timestamp'] = (datetime.now()- datetime.timedelta(seconds=3)).strftime('%Y-%m-%d %H:%M:%S')
 
             print(row)
             #producer.send('display_ad', value=row)
