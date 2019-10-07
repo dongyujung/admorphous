@@ -18,7 +18,7 @@ The following image depicts the pros and cons of using Kafka streams for this pu
 ![alt text](./images/structure5.png "structure")  
 
 In this project, I have used Confluent's KSQL, a wrapper around Kafka streams for the stream processing.
-It is a simple SQL-like language with a low learning curve, 
+It is a simple SQL-like language with a low barrier to entry, 
 perfect for cases when the implementing functions are fairly simple, and developer time is limited.   
 
 The repository is organized so that files of each part of the system are in their own directories. The parts are:  
