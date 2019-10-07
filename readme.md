@@ -34,7 +34,7 @@ with each of the compartment installed in their own EC2 instance(s) Linux system
 
 The streams of events are produced by Kafka producers that read the csv files and emits JSON files into the respective topics.    
 
-In KSQL, two major calculations are processed and displayed on dashboard:  
+In KSQL, two major calculations are done:    
 - Count the number of views of each webpage every 10 minutes (windowed aggregation).    
 - Join the streams of events and ads to be able to join the ad_id to each event, then count the number of impressions for each 
 advertisement (join and aggregation).   
