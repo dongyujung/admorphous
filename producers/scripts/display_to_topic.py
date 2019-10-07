@@ -10,11 +10,15 @@ import json
 import itertools
 #from time import sleep
 from datetime import datetime
+from datetime import timedelta
 from kafka import KafkaProducer
 
 
-def send_mapping(bootstrap_server_list, start_line,
-                 start_display_id, dump_size):
+def send_mapping(bootstrap_server_list,
+                 display_file_path,
+                 start_line,
+                 start_display_id,
+                 dump_size):
     """
 
     :param start_line:
@@ -26,18 +30,14 @@ def send_mapping(bootstrap_server_list, start_line,
     line_number
     """
     last_display_id = start_display_id + dump_size -1
-    input_file_path = '../data/processed/display_ad.csv'
 
     # Set up Kafka Producer
-    """
     producer = KafkaProducer(bootstrap_servers=bootstrap_server_list,
                              value_serializer=lambda x:
                              json.dumps(x).encode('utf-8'))
-                             """
-
 
     # Send JSON stream to topic with no sleep time
-    with open(input_file_path, 'r', encoding='utf-8') as file:
+    with open(display_file_path, 'r', encoding='utf-8') as file:
         # Csv reader iterator
         file_reader = csv.DictReader(file)
 
@@ -54,6 +54,6 @@ def send_mapping(bootstrap_server_list, start_line,
             row['timestamp'] = (datetime.now()- datetime.timedelta(seconds=3)).strftime('%Y-%m-%d %H:%M:%S')
 
             print(row)
-            #producer.send('display_ad', value=row)
+            producer.send('display_ad', value=row)
 
 
