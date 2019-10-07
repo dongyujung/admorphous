@@ -3,7 +3,7 @@
 ----------------------------------------------------------------
 
 -- Source stream
-CREATE STREAM pageviews (
+create STREAM pageviews (
     pvid int,
     document_id varchar,
     pageview_time BIGINT
