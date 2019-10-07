@@ -48,8 +48,11 @@ def send_events(bootstrap_server_list,
                              json.dumps(x).encode('utf-8'))
 
     start_line, start_display_id = 1, 1
-    line_number, line_display_id = display.send_mapping(bootstrap_server_list, start_line,
-                                                        start_display_id, dump_size)
+    line_number, line_display_id = display.send_mapping(bootstrap_server_list,
+                                                        display_file_path,
+                                                        start_line,
+                                                        start_display_id,
+                                                        dump_size)
 
     # Send JSON stream to topic
     with open(events_file_path, 'r', encoding='utf-8') as file:
