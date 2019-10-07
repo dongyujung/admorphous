@@ -70,7 +70,7 @@ def send_events(bootstrap_server_list,
             if i == 5000:
                 break
 
-            row['timestamp'] = (datetime.now() - datetime.timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S')
+            row['timestamp'] = (datetime.now() - timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S')
 
             print(i)
             print(row)
