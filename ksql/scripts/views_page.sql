@@ -5,13 +5,11 @@
 -- Source stream
 create STREAM pageviews (
     pvid int,
-    document_id varchar,
-    pageview_time BIGINT
+    document_id varchar
     )
 	with (
 	    KAFKA_TOPIC='pageviews',
 	    VALUE_FORMAT='JSON',
-	    TIMESTAMP='pageview_time',
 	    KEY='document_id'
 );
 

@@ -4,21 +4,18 @@
 
 -- Events stream
 CREATE STREAM events (
-    display_id string,
-    event_time BIGINT
+    display_id string
     )
 	with (
 	    KAFKA_TOPIC='events',
 	    VALUE_FORMAT='JSON',
-	    KEY='display_id',
-	    TIMESTAMP='event_time'
+	    KEY='display_id'
 );
 
 -- Display-ad mapping stream
 CREATE STREAM display_ad (
     display_id string,
-    ad_id int,
-    map_time BIGINT
+    ad_id int
     )
 	with (
 	    KAFKA_TOPIC='display_ad',
