@@ -26,6 +26,7 @@ The repository is organized so that files of each part of the system are in thei
 - Producer  
 - Kafka Cluster  
 - KSQL  
+- Connector  
 - Database  
 - Dashboard  
 
