@@ -76,4 +76,4 @@ def send_events(bootstrap_server_list,
             sleep(sleep_time)
 
 
-send_events(1, events_file_path, events_topic_name, 0.5, 10)
+send_events(1, events_file_path, display_file_path, events_topic_name, 0.5, 10)
