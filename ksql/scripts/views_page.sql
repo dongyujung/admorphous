@@ -11,7 +11,8 @@ create STREAM pageviews (
 	with (
 	    KAFKA_TOPIC='pageviews',
 	    VALUE_FORMAT='JSON',
-	    TIMESTAMP='pageview_time'
+	    TIMESTAMP='pageview_time',
+	    KEY='document_id'
 );
 
 -- Pageview count of each document for each tumbling window

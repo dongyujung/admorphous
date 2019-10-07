@@ -56,7 +56,6 @@ def send_pageviews(
             if i == 5000:
                 break
 
-            row['pageview_time'] = (datetime.now() - timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S')
             row['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             print(row)
