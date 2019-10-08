@@ -12,7 +12,7 @@ The data used is the ["Outbrain Click Prediction"](https://www.kaggle.com/c/outb
 
 ![alt text](./images/system.png "system")  
 
-The system removes the sequential stream processing step after the ingestion, and integrates it into the Kafka framework.  
+The design removes the sequential stream processing step after the ingestion, and integrates it into the Kafka framework.  
 The following image depicts the pros and cons of using Kafka streams for this purpose.    
 
 ![alt text](./images/structure5.png "structure")  
@@ -43,7 +43,7 @@ advertisement (join and aggregation).
 
 Setup steps for each part is in the readme file of each directory.  
 
-
+Security settings?
 
 
 

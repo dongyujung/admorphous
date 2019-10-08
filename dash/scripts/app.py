@@ -41,48 +41,19 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-styles = {
-    'pre': {
-        'border': 'thin lightgrey solid',
-        'overflowX': 'scroll'
-    }
-}
-
 trace_1 = go.Scatter(
-    x=pvid, y=count,
-    name='counts',
-    line={'width': 2, 'color': 'rgb(229, 151, 50)'}
+    x = pvid, y = count,
+    name = 'counts',
+    line = {width = 2, color = 'rgb(229, 151, 50)'}
 )
-layout = go.Layout(title='Pageview Counts',
-                   hovermode='closest',
-                   plot_bgcolor='white')
-fig = go.Figure(data=[trace_1], layout=layout)
+layout = go.Layout(title = 'Pageview Counts',
+                   hovermode = 'closest')
+fig = go.Figure(data = [trace_1], layout = layout)
 
 # Create a layout
 app.layout = html.Div([
-    # Header
-    html.H1(children='Hello Dash'),
-
-    #
-    html.Div(children='''
-        Dash: A web application framework for Python.
-    '''),
-
-    # Dropdown
-    html.P([
-        html.Label("Choose a feature"),
-        dcc.Dropdown(id='opt',
-                     options=opts,
-                     value=opts[0])
-    ],
-        style={'width': '400px',
-              'fontSize': '20px',
-              'padding-left': '100px',
-              'display': 'inline-block'})
-
-    # Line plot
-    dcc.Graph(id='plot', figure=fig)
-])
+                dcc.Graph(id = 'plot', figure = fig)
+                      ])
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=8080, host='0.0.0.0')
