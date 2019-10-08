@@ -19,7 +19,7 @@ The following image depicts the pros and cons of using Kafka streams for this pu
 
 In this project, I have used Confluent's KSQL, a wrapper around Kafka streams for the stream processing.
 It is a simple SQL-like language with a low barrier to entry, 
-perfect for cases when the implementing functions are fairly simple, and developer time is limited.   
+well suited for cases when the implementing functions are fairly simple, and developer time is limited.   
 
 The repository is organized so that files of each part of the system are in their own directories. The parts are:  
 
@@ -41,7 +41,7 @@ In KSQL, two major calculations are done:
 - Join the streams of events and ads to be able to join the ad_id to each event, then count the number of impressions for each 
 advertisement (join and aggregation).  
 
-Setup steps for each part is written in the readme file of each directory.  
+Setup steps for each part is in the readme file of each directory.  
 
 
 
