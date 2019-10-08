@@ -12,11 +12,11 @@ from datetime import datetime
 from datetime import timezone
 
 # Kafka settings
-topic_name = "platform"
 bootstrap_server_list = ["10.0.0.9:9092"]
+topic_name = "VIEWS_PAGE_WIN_FILTERED"
 
 # Postgres settings
-table = 'test'
+table = 'views_page'
 db_host_ip = "10.0.0.5"
 db_port = "5432"
 db_type = "postgres"
@@ -48,7 +48,7 @@ for message in consumer:
     inbound_dict = message.value
 
     print(inbound_dict)
-    cursor.execute(query, (inbound_dict['PLATFORM'], inbound_dict['COUNT'],
+    cursor.execute(query, (inbound_dict['DOCUMENT_ID'], inbound_dict['COUNT'],
                            datetime.now()))
     connection.commit()
 
