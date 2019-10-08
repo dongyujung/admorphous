@@ -14,7 +14,7 @@ CREATE STREAM events (
 -- Display-ad mapping stream
 CREATE STREAM display_ad (
     display_id string,
-    cast(ad_id AS STRING) AS ad_id
+    ad_id string
     )
 	with (
 	    KAFKA_TOPIC='display_ad',
