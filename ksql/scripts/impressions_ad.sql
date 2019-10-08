@@ -8,8 +8,7 @@ CREATE STREAM events (
     )
 	with (
 	    KAFKA_TOPIC='events',
-	    VALUE_FORMAT='JSON',
-	    KEY='display_id'
+	    VALUE_FORMAT='JSON'
 );
 
 -- Display-ad mapping stream
@@ -19,16 +18,13 @@ CREATE STREAM display_ad (
     )
 	with (
 	    KAFKA_TOPIC='display_ad',
-	    VALUE_FORMAT='JSON',
-	    KEY='display_id',
-	    TIMESTAMP='map_time'
+	    VALUE_FORMAT='JSON'
 );
 
 -- Join the events and display tables
 CREATE STREAM impressions AS
 	SELECT
 		e.display_id AS display_id
-		, e.event_time AS event_time
 		, d.ad_id AS ad_id
 	FROM events e
 	JOIN display_ad d
@@ -37,11 +33,17 @@ CREATE STREAM impressions AS
 
 -- Group by and count impressions for each ad
 -- Automatically keyed as ad_id
-CREATE TABLE impressions_ad
-    WITH (KAFKA_TOPIC='impressions_ad', value_format='JSON') AS
+CREATE TABLE impressions_ad AS
 	SELECT
 		ad_id,
-		cast(count(*) AS int) AS count,
-		cast(max(event_time) AS BIGINT) AS last_ts
+		cast(count(*) AS int) AS count
 	FROM impressions
 	GROUP BY ad_id;
+
+CREATE TABLE impressions_ad_filtered
+    WITH (
+        KAFKA_TOPIC='impressions_ad_filtered',
+        value_format='JSON'
+    ) AS
+	SELECT * FROM impressions_ad
+	WHERE count > 1;

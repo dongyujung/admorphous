@@ -33,12 +33,20 @@ The repository is organized so that files of each part of the system are in thei
 The overall system is deployed in Amazon Web Services (AWS), 
 with each of the compartment installed in their own EC2 instance(s) Linux system.  
 
-The streams of events are produced by Kafka producers that read the csv files and emits JSON files into the respective topics.    
+The streams of events are produced by Kafka producers that read the csv files and emits JSON files into the respective 
+topics of the Kafka cluster.      
 
 In KSQL, two major calculations are done:    
 - Count the number of views of each webpage every 10 minutes (windowed aggregation).    
 - Join the streams of events and ads to be able to join the ad_id to each event, then count the number of impressions for each 
-advertisement (join and aggregation).   
+advertisement (join and aggregation).  
+
+Setup steps for each part is written in the readme file of each directory.  
+
+
+
+
+
 
 To be continued...
 
