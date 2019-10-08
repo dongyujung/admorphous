@@ -13,10 +13,10 @@ from datetime import timezone
 
 # Kafka settings
 bootstrap_server_list = ["10.0.0.9:9092"]
-topic_name = "VIEWS_PAGE_WIN_FILTERED"
+topic_name = "IMPRESSIONS_AD_FILTERED"
 
 # Postgres settings
-table = 'views_page'
+table = 'impressions_ad'
 db_host_ip = "10.0.0.5"
 db_port = "5432"
 db_type = "postgres"
@@ -32,7 +32,7 @@ consumer = KafkaConsumer(
     value_deserializer=lambda x: json.loads(x.decode('utf-8'))
 )
 
-query = "INSERT INTO views_page (document_id, count, created_on) VALUES (%s, %s, %s);"
+query = "INSERT INTO test (ad_id, count, created_on) VALUES (%s, %s, %s);"
 
 connection = psycopg2.connect(user=usr,
                               password=pwrd,
