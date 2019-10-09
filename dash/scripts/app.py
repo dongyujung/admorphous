@@ -2,6 +2,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
+import plotly.io as pio
 
 import psycopg2
 import config
@@ -40,7 +41,7 @@ finally:
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 trace_1 = go.Scatter(
     x=pvid, y=count,
@@ -48,7 +49,7 @@ trace_1 = go.Scatter(
     line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
 layout = go.Layout(title='Pageview Counts',
-                   #plot_bgcolor='#FFFFFF',
+                   template='plotly_white',
                    hovermode='closest')
 fig = go.Figure(data = [trace_1],
                 layout = layout)
