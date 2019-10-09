@@ -54,6 +54,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+
 # Pageviews Plot
 doc_trace = go.Scatter(
     x=doc_ts, y=doc_count,
@@ -78,6 +79,7 @@ ad_layout = go.Layout(title='Advertiser View: Impressions / Ad',
 ad_fig = go.Figure(data=[ad_trace],
                 layout=ad_layout)
 
+
 # Create a layout
 app.layout = html.Div([
     html.Div([
@@ -90,7 +92,7 @@ app.layout = html.Div([
 
     # Pageviews Plot
     dcc.Graph(id='pageviews',
-              figure=doc_fig)
+              figure=doc_fig),
 
     # Impressions Plot
     dcc.Graph(id='impressions',
