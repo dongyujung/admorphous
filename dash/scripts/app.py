@@ -8,7 +8,7 @@ import psycopg2
 import config
 
 # Postgres settings
-table = 'test'
+table = 'views_page'
 db_host_ip = "10.0.0.5"
 db_port = "5432"
 db_type = "postgres"
@@ -30,7 +30,7 @@ try:
     rows = cursor.fetchall()
 
     [timestamp, count] = map(list, zip(*rows))
-    print(pvid)
+    print(timestamp)
     print(count)
 except Exception as e:
     print(e)
@@ -45,7 +45,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Pageviews Plot
 trace_1 = go.Scatter(
-    x=pvid, y=count,
+    x=timestamp, y=count,
     name='counts',
     line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
