@@ -25,11 +25,11 @@ try:
                                   port=db_port,
                                   database=db_type)
     cursor = connection.cursor()
-    query1 = "SELECT id, count FROM test WHERE platform = 2;"
+    query1 = "SELECT created_on, count FROM views_page WHERE document_id='42744';"
     cursor.execute(query1)
     rows = cursor.fetchall()
 
-    [pvid, count] = map(list, zip(*rows))
+    [timestamp, count] = map(list, zip(*rows))
     print(pvid)
     print(count)
 except Exception as e:
