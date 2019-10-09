@@ -48,14 +48,16 @@ trace_1 = go.Scatter(
     line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
 layout = go.Layout(title='Pageview Counts',
+                    'plot_bgcolor':
                    hovermode='closest')
-fig = go.Figure(data = [trace_1], layout = layout)
+fig = go.Figure(data = [trace_1],
+                layout = layout)
 
 # Create a layout
 app.layout = html.Div([
     html.Div([
         # Header
-        html.H1("Admorphous Dashboard"),
+        html.H1("AdMorphous Dashboard"),
         # Paragraph
         html.P("Platform View")
     ],
@@ -64,7 +66,16 @@ app.layout = html.Div([
     ),
 
     # Plot
-    dcc.Graph(id='plot', figure=fig)
+    dcc.Graph(id='plot',
+              figure=fig)
+    dcc.Graph(id='plot2',
+              figure={
+                  'data': [trace_1],
+                  'layout': {
+                      'plot_bgcolor': '#FFFFFF'
+                  }
+
+              })
 ])
 
 if __name__ == '__main__':
