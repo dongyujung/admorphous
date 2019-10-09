@@ -67,7 +67,7 @@ app.layout = html.Div([
 
     # Plot
     dcc.Graph(id='plot',
-              figure=fig)
+              figure=fig),
     dcc.Graph(id='plot2',
               figure={
                   'data': [trace_1],
