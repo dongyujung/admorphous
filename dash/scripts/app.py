@@ -52,8 +52,8 @@ trace_1 = go.Scatter(
 layout = go.Layout(title='Platform View: Pageviews / page / 10 min',
                    template='plotly_white',
                    hovermode='closest')
-fig = go.Figure(data = [trace_1],
-                layout = layout)
+fig = go.Figure(data=[trace_1],
+                layout=layout)
 
 # Create a layout
 app.layout = html.Div([
