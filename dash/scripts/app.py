@@ -59,7 +59,7 @@ app.layout = html.Div([
         # Paragraph
         html.P("Platform View")
     ],
-        style={'padding': '50px',
+        style={'padding': '20px',
                'backgroundColor': '#3aaab2'}
     ),
 
