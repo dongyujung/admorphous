@@ -43,12 +43,13 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+# Pageviews Plot
 trace_1 = go.Scatter(
     x=pvid, y=count,
     name='counts',
     line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
-layout = go.Layout(title='Pageview Counts',
+layout = go.Layout(title='Platform View: Pageviews / page / 10 min',
                    template='plotly_white',
                    hovermode='closest')
 fig = go.Figure(data = [trace_1],
@@ -58,9 +59,7 @@ fig = go.Figure(data = [trace_1],
 app.layout = html.Div([
     html.Div([
         # Header
-        html.H1("AdMorphous Dashboard"),
-        # Paragraph
-        html.P("Platform View")
+        html.H1("AdMorphous Dashboard")
     ],
         style={'padding': '10px',
                'backgroundColor': '#FFFFFF'}
