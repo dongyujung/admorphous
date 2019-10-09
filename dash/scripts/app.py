@@ -55,14 +55,13 @@ fig = go.Figure(data = [trace_1], layout = layout)
 app.layout = html.Div([
     html.Div([
         # Header
-        html.H1("Admorphous Dashboard")
-
+        html.H1("Admorphous Dashboard"),
+        # Paragraph
+        html.P("Platform View")
     ],
         style={'padding': '10px',
-               'backgroundColor': '#3aaab2'}
+               'backgroundColor': '#FFFFFF'}
     ),
-    # Paragraph
-    html.P("Platform View")
 
     # Plot
     dcc.Graph(id='plot', figure=fig)
