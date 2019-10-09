@@ -40,7 +40,7 @@ finally:
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__)
 
 trace_1 = go.Scatter(
     x=pvid, y=count,
@@ -48,7 +48,7 @@ trace_1 = go.Scatter(
     line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
 layout = go.Layout(title='Pageview Counts',
-                   plot_bgcolor='#FFFFFF',
+                   #plot_bgcolor='#FFFFFF',
                    hovermode='closest')
 fig = go.Figure(data = [trace_1],
                 layout = layout)
