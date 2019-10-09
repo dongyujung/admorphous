@@ -48,7 +48,7 @@ trace_1 = go.Scatter(
     line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
 layout = go.Layout(title='Pageview Counts',
-                    'plot_bgcolor':
+                   plot_bgcolor='#FFFFFF',
                    hovermode='closest')
 fig = go.Figure(data = [trace_1],
                 layout = layout)
@@ -67,15 +67,7 @@ app.layout = html.Div([
 
     # Plot
     dcc.Graph(id='plot',
-              figure=fig),
-    dcc.Graph(id='plot2',
-              figure={
-                  'data': [trace_1],
-                  'layout': {
-                      'plot_bgcolor': '#FFFFFF'
-                  }
-
-              })
+              figure=fig)
 ])
 
 if __name__ == '__main__':
