@@ -29,9 +29,20 @@ try:
     cursor.execute(query1)
     rows = cursor.fetchall()
 
-    [timestamp, count] = map(list, zip(*rows))
-    print(timestamp)
-    print(count)
+    [doc_ts, doc_count] = map(list, zip(*rows))
+    print(doc_ts)
+    print(doc_count)
+
+    query2 = "SELECT created_on, count FROM impressions_ad WHERE ad_id='149541';"
+    cursor.execute(query2)
+    rows = cursor.fetchall()
+
+    [ad_ts, ad_count] = map(list, zip(*rows))
+    print(ad_ts)
+    print(ad_count)
+
+
+
 except Exception as e:
     print(e)
 finally:
@@ -44,16 +55,28 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Pageviews Plot
-trace_1 = go.Scatter(
-    x=timestamp, y=count,
-    name='counts',
+doc_trace = go.Scatter(
+    x=doc_ts, y=doc_count,
+    name='doc_counts',
     line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
-layout = go.Layout(title='Platform View: Pageviews / page / 10 min',
+doc_layout = go.Layout(title='Platform View: Pageviews / page / 10 min',
                    template='plotly_white',
                    hovermode='closest')
-fig = go.Figure(data=[trace_1],
-                layout=layout)
+doc_fig = go.Figure(data=[doc_trace],
+                layout=doc_layout)
+
+# Impressions Plot
+ad_trace = go.Scatter(
+    x=ad_ts, y=ad_count,
+    name='ad_counts',
+    line={'width': 2, 'color': '#00cccc'}
+)
+ad_layout = go.Layout(title='Advertiser View: Impressions / Ad',
+                   template='plotly_white',
+                   hovermode='closest')
+ad_fig = go.Figure(data=[ad_trace],
+                layout=ad_layout)
 
 # Create a layout
 app.layout = html.Div([
@@ -65,9 +88,13 @@ app.layout = html.Div([
                'backgroundColor': '#FFFFFF'}
     ),
 
-    # Plot
-    dcc.Graph(id='plot',
-              figure=fig)
+    # Pageviews Plot
+    dcc.Graph(id='pageviews',
+              figure=doc_fig)
+
+    # Impressions Plot
+    dcc.Graph(id='impressions',
+              figure=ad_fig)
 ])
 
 if __name__ == '__main__':
