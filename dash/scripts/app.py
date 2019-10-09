@@ -27,17 +27,17 @@ try:
     cursor = connection.cursor()
     query1 = "SELECT created_on, count FROM views_page WHERE document_id='42744';"
     cursor.execute(query1)
-    rows = cursor.fetchall()
+    rows1 = cursor.fetchall()
 
-    [doc_ts, doc_count] = map(list, zip(*rows))
+    [doc_ts, doc_count] = map(list, zip(*rows1))
     print(doc_ts)
     print(doc_count)
 
     query2 = "SELECT created_on, count FROM impressions_ad WHERE ad_id='149541';"
     cursor.execute(query2)
-    rows = cursor.fetchall()
+    rows2 = cursor.fetchall()
 
-    [ad_ts, ad_count] = map(list, zip(*rows))
+    [ad_ts, ad_count] = map(list, zip(*rows2))
     print(ad_ts)
     print(ad_count)
 

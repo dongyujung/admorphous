@@ -43,7 +43,6 @@ advertisement (join and aggregation).
 
 Setup steps for each part is in the readme file of each directory.  
 
-Security settings?
 
 
 
