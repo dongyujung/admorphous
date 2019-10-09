@@ -42,7 +42,6 @@ try:
     print(ad_count)
 
 
-
 except Exception as e:
     print(e)
 finally:
@@ -84,19 +83,28 @@ ad_fig = go.Figure(data=[ad_trace],
 app.layout = html.Div([
     html.Div([
         # Header
-        html.H1("AdMorphous Dashboard")
+        html.H2("AdMorphous Dashboard")
     ],
-        style={'padding': '10px',
+        style={'padding': '8px',
                'backgroundColor': '#FFFFFF'}
     ),
 
+    html.Div([
+        # Header
+        html.H3("Advertiser #: Your Advertisements"),
+
+        # Impressions Plot
+        dcc.Graph(id='impressions',
+                  figure=ad_fig)
+
+
+    ]),
+
     # Pageviews Plot
     dcc.Graph(id='pageviews',
-              figure=doc_fig),
+              figure=doc_fig)
 
-    # Impressions Plot
-    dcc.Graph(id='impressions',
-              figure=ad_fig)
+
 ])
 
 if __name__ == '__main__':
