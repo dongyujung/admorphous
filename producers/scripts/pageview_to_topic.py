@@ -1,5 +1,5 @@
 """
-Converts csv file to a stream of JSON, sends to Kafka topic.
+Converts pageviews csv file to a stream of JSON, sends to Kafka topic.
 Input arguments: script, input csv path, topic name, bootstrap servers
 """
 # Import packages
@@ -8,27 +8,24 @@ import csv
 import json
 from time import sleep
 from datetime import datetime
-from datetime import timedelta
 from kafka import KafkaProducer
-import display_to_topic as display
+
 
 # Shell script input arguments
-#args = sys.argv
+args = sys.argv
 
 # There should be four or more input arguments:
-# script, input csv path, topic name, bootstrap servers
-"""
-if len(args) >= 4:
-    input_file_path = args[1]
-    topic_name = args[2]
-    bootstrap_server_list = args[3:]
+# script, sleep time, bootstrap servers
+if len(args) >= 3:
+    sleep_time = args[1]
+    bootstrap_server_list = args[2:]
 else:
     raise Exception('Need at least four input arguments.')
-"""
+
+# Parameters
 bootstrap_server_list = ['localhost:9092']
-pageviews_file_path = '../data/processed/page_views_sample_processed.csv'
+pageviews_file_path = '~/admorphous/producers/data/processed/page_views_sample_processed.csv'
 pageviews_topic_name = 'pageviews'
-sleep_time = 1  # in secs
 
 
 def send_pageviews(
@@ -38,9 +35,16 @@ def send_pageviews(
         sleep_time
 ):
     """
+    Sets up Kafka producer and sends each line of the csv file to the Kafka topic as JSON.
 
-    :param bootstrap_server_list:
-    :return:
+    Args:
+        bootstrap_server_list (list): List of Kafka server IP addresses and port, e.g., 'localhost:9092'.
+        input_file_path (str): Input csv file path.
+        topic_name (str): Name of Kafka topic that the data is sent to.
+        sleep_time (float): Time interval between messages in seconds.
+
+    Returns:
+
     """
     # Set up Kafka Producer
     producer = KafkaProducer(bootstrap_servers=bootstrap_server_list,
@@ -56,12 +60,16 @@ def send_pageviews(
             if i == 5000:
                 break
 
+            # Set timestamp
             row['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             print(row)
 
+            # Send message to topic
             producer.send(topic_name, value=row)
+
             sleep(sleep_time)
 
 
-send_pageviews(bootstrap_server_list, pageviews_file_path, pageviews_topic_name, sleep_time)
+if __name__ == "__main__":
+    send_pageviews(bootstrap_server_list, pageviews_file_path, pageviews_topic_name, sleep_time)
