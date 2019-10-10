@@ -145,6 +145,7 @@ app.layout = html.Div([
         # Pageviews Plot
         dcc.Graph(id='pageviews',
                   figure=doc_fig)
+    )]
 
 
 ])
