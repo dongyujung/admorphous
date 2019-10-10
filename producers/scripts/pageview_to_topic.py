@@ -9,6 +9,7 @@ import json
 from time import sleep
 from datetime import datetime
 from kafka import KafkaProducer
+import os
 
 
 # Shell script input arguments
@@ -24,7 +25,9 @@ else:
 
 # Parameters
 #bootstrap_server_list = ['localhost:9092']
-pageviews_file_path = '~/admorphous/producers/data/processed/page_views_sample_processed.csv'
+pageviews_file_path = os.path.join(os.path.expanduser('~'), 'admorphous', 'producers',
+                                   'data', 'processed',
+                                   'page_views_sample_processed.csv')
 pageviews_topic_name = 'pageviews'
 
 
