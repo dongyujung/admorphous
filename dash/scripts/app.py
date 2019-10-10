@@ -37,9 +37,17 @@ try:
     cursor.execute(query2)
     rows2 = cursor.fetchall()
 
-    [ad_ts, ad_count] = map(list, zip(*rows2))
-    print(ad_ts)
-    print(ad_count)
+    [ad_ts1, ad_count1] = map(list, zip(*rows2))
+    print(ad_ts1)
+    print(ad_count1)
+
+    query3 = "SELECT created_on, count FROM impressions_ad WHERE ad_id='149540';"
+    cursor.execute(query3)
+    rows3 = cursor.fetchall()
+
+    [ad_ts2, ad_count2] = map(list, zip(*rows3))
+    print(ad_ts2)
+    print(ad_count2)
 
 
 except Exception as e:
@@ -66,37 +74,52 @@ doc_layout = go.Layout(title='Platform View: Pageviews / page / 10 min',
 doc_fig = go.Figure(data=[doc_trace],
                 layout=doc_layout)
 
-# Impressions Plot
-ad_trace = go.Scatter(
-    x=ad_ts, y=ad_count,
-    name='ad_counts',
+# Impressions Plot1
+ad_trace1 = go.Scatter(
+    x=ad_ts1, y=ad_count1,
+    name='ad_counts1',
     line={'width': 2, 'color': '#00cccc'}
 )
-ad_layout = go.Layout(title='Advertiser View: Impressions / Ad',
+ad_layout1 = go.Layout(title='Impressions: Ad_ID 149541 ',
                    template='plotly_white',
                    hovermode='closest')
-ad_fig = go.Figure(data=[ad_trace],
-                layout=ad_layout)
+ad_fig1 = go.Figure(data=[ad_trace1],
+                    layout=ad_layout1)
+
+# Impressions Plot2
+ad_trace2 = go.Scatter(
+    x=ad_ts2, y=ad_count2,
+    name='ad_counts2',
+    line={'width': 2, 'color': '#00cccc'}
+)
+ad_layout2 = go.Layout(title='Impressions: Ad_ID 149540 ',
+                   template='plotly_white',
+                   hovermode='closest')
+ad_fig2 = go.Figure(data=[ad_trace2],
+                    layout=ad_layout2)
 
 
 # Create a layout
 app.layout = html.Div([
     html.Div([
         # Header
-        html.H2("AdMorphous Dashboard")
+        html.H3("AdMorphous Dashboard")
     ],
-        style={'padding': '8px',
+        style={'padding': '5px',
                'backgroundColor': '#FFFFFF'}
     ),
 
     html.Div([
         # Header
-        html.H3("Advertiser #: Your Advertisements"),
+        html.H5("Advertiser #: Your Metrics"),
 
         # Impressions Plot
-        dcc.Graph(id='impressions',
-                  figure=ad_fig)
+        dcc.Graph(id='impressions1',
+                  figure=ad_fig1),
 
+        # Impressions Plot
+        dcc.Graph(id='impressions2',
+                  figure=ad_fig2)
 
     ]),
 
