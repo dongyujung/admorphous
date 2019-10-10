@@ -130,7 +130,7 @@ app.layout = html.Div([
         dcc.Graph(id='impressions2',
                   figure=ad_fig2)
     ],
-        style={'width': '50%'}
+        style={'width': '49%'}
     ),
 
     html.Div([
@@ -145,7 +145,9 @@ app.layout = html.Div([
         # Pageviews Plot
         dcc.Graph(id='pageviews',
                   figure=doc_fig)
-    ])
+    ],
+        style={'width': '49%'}
+    )
 
 
 ])
