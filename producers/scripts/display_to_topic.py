@@ -1,16 +1,12 @@
 """
-Converts display-ad mapping to a stream of JSON, sends to Kafka topic.
-Sends batches of mapping when signaled from event stream.
-...
+Includes function that converts display csv file to a stream of JSON, sends to Kafka topic.
+Called by events_to_topic.py whenever a dump of display_ad mapping is needed.
 """
 # Import packages
-#import sys
 import csv
 import json
 import itertools
-#from time import sleep
 from datetime import datetime
-from datetime import timedelta
 from kafka import KafkaProducer
 
 
@@ -20,14 +16,19 @@ def send_mapping(bootstrap_server_list,
                  start_display_id,
                  dump_size):
     """
+    Sets up Kafka producer and sends each line of the csv file to the Kafka topic as JSON.
 
-    :param start_line:
-    :param start_display_id:
-    :param bootstrap_server_list:
-    :param current_display_id:
-    :param dump_size:
-    :return:
-    line_number
+    Args:
+        bootstrap_server_list (list): List of Kafka server IP addresses and port, e.g., 'localhost:9092'.
+        display_file_path (str): Display csv file path.
+        start_line (str): Which line to start csv reading.
+        start_display_id(str): display_id to start csv reading.
+        dump_size (int): Dump size of display-ad mappings.
+
+    Returns:
+        line_number (int): Line number before which where the current reading ended.
+        line_display_id (str): display_id before which the current reading ended.
+
     """
     last_display_id = start_display_id + dump_size -1
 
@@ -51,9 +52,12 @@ def send_mapping(bootstrap_server_list,
                 line_number = file_reader.line_num
                 return line_number, line_display_id
 
+            # Set timestamp
             row['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             print(row)
+
+            # Send JSON to Kafka topic
             producer.send('display_ad', value=row)
 
 

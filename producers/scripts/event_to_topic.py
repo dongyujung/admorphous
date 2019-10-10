@@ -1,6 +1,7 @@
 """
-Converts csv file to a stream of JSON, sends to Kafka topic.
-Input arguments: script, input csv path, topic name, bootstrap servers
+Converts events csv file to a stream of JSON, sends to Kafka topic.
+Calls display_to_topic.py to also send display data every interval of time.
+Input arguments: script, sleep time, bootstrap servers
 """
 # Import packages
 import sys
@@ -8,26 +9,28 @@ import csv
 import json
 from time import sleep
 from datetime import datetime
-from datetime import timedelta
 from kafka import KafkaProducer
 import display_to_topic as display
+import os
 
 # Shell script input arguments
-#args = sys.argv
+args = sys.argv
 
 # There should be four or more input arguments:
-# script, input csv path, topic name, bootstrap servers
-"""
-if len(args) >= 4:
-    input_file_path = args[1]
-    topic_name = args[2]
+# script, sleep time, bootstrap servers
+if len(args) >= 3:
+    sleep_time = float(args[1])
+    dump_size = int(args[2])
     bootstrap_server_list = args[3:]
 else:
     raise Exception('Need at least four input arguments.')
-"""
-bootstrap_server_list = ['localhost:9092']
-events_file_path = '../data/processed/events.csv'
-display_file_path = '../data/processed/display_ad.csv'
+
+events_file_path = os.path.join(os.path.expanduser('~'), 'admorphous', 'producers',
+                                   'data', 'processed',
+                                   'events.csv')
+display_file_path = os.path.join(os.path.expanduser('~'), 'admorphous', 'producers',
+                                   'data', 'processed',
+                                   'display_ads.csv')
 events_topic_name = 'events'
 
 
@@ -38,9 +41,18 @@ def send_events(bootstrap_server_list,
                 sleep_time,
                 dump_size):
     """
+    Sets up Kafka producer and sends each line of the csv file to the Kafka topic as JSON.
 
-    :param bootstrap_server_list:
-    :return:
+    Args:
+        bootstrap_server_list (list): List of Kafka server IP addresses and port, e.g., 'localhost:9092'.
+        events_file_path (str): Events csv file path.
+        display_file_path (str): Display csv file path.
+        topic_name (str): Name of Kafka topic that the data is sent to.
+        sleep_time (float): Time interval between messages in seconds.
+        dump_size (int): Dump size of display-ad mappings.
+
+    Returns:
+
     """
     # Set up Kafka Producer
     producer = KafkaProducer(bootstrap_servers=bootstrap_server_list,
@@ -48,6 +60,7 @@ def send_events(bootstrap_server_list,
                              json.dumps(x).encode('utf-8'))
 
     start_line, start_display_id = 1, 1
+    # Send some mapping data initially
     line_number, line_display_id = display.send_mapping(bootstrap_server_list,
                                                         display_file_path,
                                                         start_line,
@@ -65,17 +78,21 @@ def send_events(bootstrap_server_list,
                 line_number, line_display_id = display.send_mapping(bootstrap_server_list, display_file_path,
                                                                     line_number,
                                                                     line_display_id, dump_size)
-                #input("Press Enter to continue...")
-
-            if i == 5000:
-                break
-
+            # Set timestamp
             row['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             print(row)
 
+            # Send JSON to Kafka topic
             producer.send(topic_name, value=row)
+
             sleep(sleep_time)
 
 
-send_events(bootstrap_server_list, events_file_path, display_file_path, events_topic_name, 0.5, 10)
+if __name__ == "__main__":
+    send_events(bootstrap_server_list,
+                events_file_path,
+                display_file_path,
+                events_topic_name,
+                sleep_time,
+                dump_size)

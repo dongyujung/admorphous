@@ -1,1 +1,1 @@
-python3 pageview_to_topic.py 0.1 localhost:9092
+python3 event_to_topic.py 1 10 localhost:9092

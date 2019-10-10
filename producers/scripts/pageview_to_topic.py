@@ -1,6 +1,6 @@
 """
 Converts pageviews csv file to a stream of JSON, sends to Kafka topic.
-Input arguments: script, input csv path, topic name, bootstrap servers
+Input arguments: script, sleep time, bootstrap servers
 """
 # Import packages
 import sys
@@ -21,10 +21,9 @@ if len(args) >= 3:
     sleep_time = float(args[1])
     bootstrap_server_list = args[2:]
 else:
-    raise Exception('Need at least four input arguments.')
+    raise Exception('Need at least three input arguments.')
 
 # Parameters
-#bootstrap_server_list = ['localhost:9092']
 pageviews_file_path = os.path.join(os.path.expanduser('~'), 'admorphous', 'producers',
                                    'data', 'processed',
                                    'page_views_sample_processed.csv')
