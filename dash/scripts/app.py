@@ -111,43 +111,46 @@ app.layout = html.Div([
     ),
 
     html.Div([
+
         html.Div([
+            html.Div([
+                # Header
+                html.H3("Advertiser view")
+            ],
+                style={'padding': '5px',
+                       'textAlign': 'center'}
+            ),
+
             # Header
-            html.H3("Advertiser view")
+            html.H5("Advertiser #2670: Your Metrics"),
+
+            # Impressions Plot
+            dcc.Graph(id='impressions1',
+                      figure=ad_fig1),
+
+            # Impressions Plot
+            dcc.Graph(id='impressions2',
+                      figure=ad_fig2)
         ],
-            style={'padding': '5px',
-                   'textAlign': 'center'}
+            style={'width': '45%'}
         ),
 
-        # Header
-        html.H5("Advertiser #2670: Your Metrics"),
-
-        # Impressions Plot
-        dcc.Graph(id='impressions1',
-                  figure=ad_fig1),
-
-        # Impressions Plot
-        dcc.Graph(id='impressions2',
-                  figure=ad_fig2)
-    ],
-        style={'width': '40%'}
-    ),
-
-    html.Div([
         html.Div([
-            # Header
-            html.H3("Platform view")
-        ],
-            style={'padding': '5px',
-                   'textAlign': 'center'}
-        ),
+            html.Div([
+                # Header
+                html.H3("Platform view")
+            ],
+                style={'padding': '5px',
+                       'textAlign': 'center'}
+            ),
 
-        # Pageviews Plot
-        dcc.Graph(id='pageviews',
-                  figure=doc_fig)
-    ],
-        style={'width': '40%'}
-    )
+            # Pageviews Plot
+            dcc.Graph(id='pageviews',
+                      figure=doc_fig)
+        ],
+            style={'width': '45%'}
+        )
+    ])
 
 ])
 
