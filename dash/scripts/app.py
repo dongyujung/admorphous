@@ -131,7 +131,7 @@ app.layout = html.Div([
         dcc.Graph(id='impressions2',
                   figure=ad_fig2)
     ],
-        className="six columns"
+        className="five columns"
     ),
 
     html.Div([
