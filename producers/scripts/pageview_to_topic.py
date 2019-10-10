@@ -18,7 +18,7 @@ args = sys.argv
 # There should be four or more input arguments:
 # script, sleep time, bootstrap servers
 if len(args) >= 3:
-    sleep_time = args[1]
+    sleep_time = int(args[1])
     bootstrap_server_list = args[2:]
 else:
     raise Exception('Need at least four input arguments.')
@@ -44,7 +44,7 @@ def send_pageviews(
         bootstrap_server_list (list): List of Kafka server IP addresses and port, e.g., 'localhost:9092'.
         input_file_path (str): Input csv file path.
         topic_name (str): Name of Kafka topic that the data is sent to.
-        sleep_time (float): Time interval between messages in seconds.
+        sleep_time (int): Time interval between messages in seconds.
 
     Returns:
 
