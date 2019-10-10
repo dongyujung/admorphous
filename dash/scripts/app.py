@@ -41,7 +41,7 @@ try:
     print(ad_ts1)
     print(ad_count1)
 
-    query3 = "SELECT created_on, count FROM impressions_ad WHERE ad_id='149540';"
+    query3 = "SELECT created_on, count FROM impressions_ad WHERE ad_id='149539';"
     cursor.execute(query3)
     rows3 = cursor.fetchall()
 
@@ -92,7 +92,7 @@ ad_trace2 = go.Scatter(
     name='ad_counts2',
     line={'width': 2, 'color': '#00cccc'}
 )
-ad_layout2 = go.Layout(title='Impressions: Ad_ID 149540 ',
+ad_layout2 = go.Layout(title='Impressions: Ad_ID 149539 ',
                    template='plotly_white',
                    hovermode='closest')
 ad_fig2 = go.Figure(data=[ad_trace2],
@@ -111,7 +111,7 @@ app.layout = html.Div([
 
     html.Div([
         # Header
-        html.H5("Advertiser #: Your Metrics"),
+        html.H5("Advertiser #2670: Your Metrics"),
 
         # Impressions Plot
         dcc.Graph(id='impressions1',
