@@ -23,7 +23,7 @@ else:
     raise Exception('Need at least four input arguments.')
 
 # Parameters
-bootstrap_server_list = ['localhost:9092']
+#bootstrap_server_list = ['localhost:9092']
 pageviews_file_path = '~/admorphous/producers/data/processed/page_views_sample_processed.csv'
 pageviews_topic_name = 'pageviews'
 
