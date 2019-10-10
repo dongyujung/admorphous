@@ -147,7 +147,7 @@ app.layout = html.Div([
         dcc.Graph(id='pageviews',
                   figure=doc_fig)
     ],
-        className="six columns"
+        className="five columns"
     )
 ])
 
