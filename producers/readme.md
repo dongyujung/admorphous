@@ -37,5 +37,4 @@ Install:
 - git  
 - AWS CLI  
 
-## Operation  
 
