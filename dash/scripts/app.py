@@ -68,7 +68,7 @@ doc_trace = go.Scatter(
     name='doc_counts',
     line={'width': 2, 'color': 'rgb(229, 151, 50)'}
 )
-doc_layout = go.Layout(title='Platform View: Pageviews / page / 10 min',
+doc_layout = go.Layout(title='Pageviews (10 minute window)',
                    template='plotly_white',
                    hovermode='closest')
 doc_fig = go.Figure(data=[doc_trace],
@@ -117,6 +117,7 @@ app.layout = html.Div([
             html.H3("Advertiser view")
         ],
             style={'padding': '5px',
+                   'backgroundColor': '#00cccc',
                    'textAlign': 'center'}
         ),
 
@@ -140,8 +141,12 @@ app.layout = html.Div([
             html.H3("Platform view")
         ],
             style={'padding': '5px',
+                   'backgroundColor': 'rgb(229, 151, 50)',
                    'textAlign': 'center'}
         ),
+
+        # Header
+        html.H5("Page #42744"),
 
         # Pageviews Plot
         dcc.Graph(id='pageviews',
