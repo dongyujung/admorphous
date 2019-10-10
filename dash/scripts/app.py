@@ -110,49 +110,50 @@ app.layout = html.Div([
                'textAlign': 'center'}
     ),
 
+
     html.Div([
-
         html.Div([
-            html.Div([
-                # Header
-                html.H3("Advertiser view")
-            ],
-                style={'padding': '5px',
-                       'textAlign': 'center'}
-            ),
-
             # Header
-            html.H5("Advertiser #2670: Your Metrics"),
-
-            # Impressions Plot
-            dcc.Graph(id='impressions1',
-                      figure=ad_fig1),
-
-            # Impressions Plot
-            dcc.Graph(id='impressions2',
-                      figure=ad_fig2)
+            html.H3("Advertiser view")
         ],
-            style={'width': '45%'}
+            style={'padding': '5px',
+                   'textAlign': 'center'}
         ),
 
+        # Header
+        html.H5("Advertiser #2670: Your Metrics"),
+
+        # Impressions Plot
+        dcc.Graph(id='impressions1',
+                  figure=ad_fig1),
+
+        # Impressions Plot
+        dcc.Graph(id='impressions2',
+                  figure=ad_fig2)
+    ],
+        className="six columns"
+    ),
+
+    html.Div([
         html.Div([
-            html.Div([
-                # Header
-                html.H3("Platform view")
-            ],
-                style={'padding': '5px',
-                       'textAlign': 'center'}
-            ),
-
-            # Pageviews Plot
-            dcc.Graph(id='pageviews',
-                      figure=doc_fig)
+            # Header
+            html.H3("Platform view")
         ],
-            style={'width': '45%'}
-        )
-    ])
+            style={'padding': '5px',
+                   'textAlign': 'center'}
+        ),
 
+        # Pageviews Plot
+        dcc.Graph(id='pageviews',
+                  figure=doc_fig)
+    ],
+        className="six columns"
+    )
 ])
+
+app.css.append_css({
+    'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
+})
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=80, host='0.0.0.0')
