@@ -106,10 +106,19 @@ app.layout = html.Div([
         html.H3("AdMorphous Dashboard")
     ],
         style={'padding': '5px',
-               'backgroundColor': '#FFFFFF'}
+               'backgroundColor': '#FFFFFF',
+               'textAlign': 'center'}
     ),
 
     html.Div([
+        html.Div([
+            # Header
+            html.H3("Advertiser view")
+        ],
+            style={'padding': '5px',
+                   'textAlign': 'center'}
+        ),
+
         # Header
         html.H5("Advertiser #2670: Your Metrics"),
 
@@ -120,13 +129,22 @@ app.layout = html.Div([
         # Impressions Plot
         dcc.Graph(id='impressions2',
                   figure=ad_fig2)
-    ], style={'width': '50%'}
-
+    ],
+        style={'width': '50%'}
     ),
 
-    # Pageviews Plot
-    dcc.Graph(id='pageviews',
-              figure=doc_fig)
+    html.Div([
+        html.Div([
+            # Header
+            html.H3("Platform view")
+        ],
+            style={'padding': '5px',
+                   'textAlign': 'center'}
+        ),
+
+        # Pageviews Plot
+        dcc.Graph(id='pageviews',
+                  figure=doc_fig)
 
 
 ])
