@@ -30,7 +30,7 @@ events_file_path = os.path.join(os.path.expanduser('~'), 'admorphous', 'producer
                                    'events.csv')
 display_file_path = os.path.join(os.path.expanduser('~'), 'admorphous', 'producers',
                                    'data', 'processed',
-                                   'display_ads.csv')
+                                   'display_ad.csv')
 events_topic_name = 'events'
 
 
