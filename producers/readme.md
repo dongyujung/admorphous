@@ -1,21 +1,36 @@
-### Producer Nodes Setup    
+# Producer Nodes  
 
+## Overview  
 
-```
+Streams of data are generated using Kafka producers for three data sources: 
+pageviews, events, and displays, and sent to three different topics
+ in the Kafka cluster.   
+The pageviews stream is generated independent of other streams. 
+The events and display streams need to be joined, so some alignment 
+logic is implemented. These two streams are generated with 
+`event_to_topic.py`, with the script calling `display_to_topic.py` 
+once in a specified interval of ID's. To generate all streams, run  
+
+```bash
+sh ~/admorphous/producers/scripts/create_stream.sh
+```     
+
+## Setup    
+
+```bash
 # Updates
 sudo apt-get update
 # Install Java 8
 sudo apt install openjdk-8-jdk
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ```
-python  
-pip  
-pandas  
-kafka    
-git  
-AWS CLI  
+Install:  
+- python  
+- pip  
+- pandas  
+- kafka    
+- git  
+- AWS CLI  
 
-```
-aws s3 cp s3://insight-outbrain-project-data/raw/pag
-e_views_sample.csv ./
-```
+## Operation  
+
