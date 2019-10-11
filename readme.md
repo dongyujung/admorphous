@@ -26,6 +26,9 @@ In this project, I have used Confluent's KSQL, a wrapper around Kafka streams fo
 It is a simple SQL-like language with a low barrier to entry, 
 well suited for cases when the implementing functions are fairly simple, and developer time is limited.   
 
+Kafka Topic Architecture Diagram:  
+![alt text](./images/topics.png "structure")  
+
 The repository is organized so that files of each part of the system are in their own directories. The parts are:  
 
 - Producer  
