@@ -16,7 +16,7 @@ raw data into a form that is more readily used in the producers.
 ## Operation  
 To generate all streams, run  
 
-```bash
+```shell script
 sh ~/admorphous/create_streams.sh
 ```     
 
