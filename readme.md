@@ -12,10 +12,10 @@ The data used is the ["Outbrain Click Prediction"](https://www.kaggle.com/c/outb
 
 ![alt text](./images/system.png "system")  
 
-- Streams of different data sources are ingested through Kafka.  
-- Processed through KSQL and sent back to the Kafka cluster.  
-- Sent to connectors to be passed on to databases.    
-- Displayed on dashboards.  
+- Streams of different data sources are ingested into Kafka,  
+- processed through KSQL and sent back to the Kafka cluster,   
+- sent to connectors to be passed on to a database,      
+- displayed on dashboards.  
 
 The design removes the sequential stream processing step after the ingestion, and integrates it into the Kafka framework.  
 The following image depicts the pros and cons of using Kafka streams for this purpose.    
@@ -46,7 +46,7 @@ In KSQL, two major calculations are done:
 - Join the streams of events and ads to be able to join the ad_id to each event, then count the number of impressions for each 
 advertisement (join and aggregation).  
 
-Setup steps for each part is in the readme file of each directory.  
+Setup and operation steps for each part is in the readme file of each directory.  
 
 
 
