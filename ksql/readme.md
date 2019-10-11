@@ -41,3 +41,4 @@ wget -qO - https://packages.confluent.io/deb/5.3/archive.key | sudo apt-key add 
 sudo add-apt-repository "deb [arch=amd64] https://packages.confluent.io/deb/5.3 stable main"
 ```
 
+- git  

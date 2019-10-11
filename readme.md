@@ -12,6 +12,11 @@ The data used is the ["Outbrain Click Prediction"](https://www.kaggle.com/c/outb
 
 ![alt text](./images/system.png "system")  
 
+- Streams of different data sources are ingested through Kafka.  
+- Processed through KSQL and sent back to the Kafka cluster.  
+- Sent to connectors to be passed on to databases.    
+- Displayed on dashboards.  
+
 The design removes the sequential stream processing step after the ingestion, and integrates it into the Kafka framework.  
 The following image depicts the pros and cons of using Kafka streams for this purpose.    
 
@@ -45,7 +50,4 @@ Setup steps for each part is in the readme file of each directory.
 
 
 
-
-
-To be continued...
 
