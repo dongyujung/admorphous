@@ -5,6 +5,7 @@
 -- Events stream
 CREATE STREAM events (
     display_id string
+    timestamp BIGINT
     )
 	with (
 	    KAFKA_TOPIC='events',
@@ -25,6 +26,7 @@ CREATE STREAM display_ad (
 CREATE STREAM impressions AS
 	SELECT
 		e.display_id AS display_id
+		e.timestamp AS event_ts
 		, d.ad_id AS ad_id
 	FROM events e
 	JOIN display_ad d
@@ -39,6 +41,7 @@ CREATE TABLE impressions_ad with (
     ) AS
 	SELECT
 		ad_id,
+		max(ROWTIME),
 		cast(count(*) AS int) AS count
 	FROM impressions
 	GROUP BY ad_id;
