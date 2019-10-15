@@ -20,10 +20,10 @@ consumer = KafkaConsumer(
 
 for message in consumer:
 
-    inbound_dict = message.value
-    headers = message.headers
+    #inbound_dict = message.value
+    #headers = message.headers
 
-    print(inbound_dict)
-    print(headers)
+
+    print(message)
 
 
