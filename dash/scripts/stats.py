@@ -26,9 +26,9 @@ rows1 = cursor.fetchall()
 np_doc_p_ts = np.array(doc_p_ts)
 np_doc_c_ts = np.array(doc_c_ts)
 
-doc_dt = (np_doc_c_ts - np_doc_p_ts) / 1e3
+doc_dt = (np_doc_c_ts - np_doc_p_ts).microseconds
 
-plt.hist(doc_dt, normed=True, bins=30)
+plt.hist(doc_dt, density=True, bins=30)
 plt.savefig('doc_1s.png')
 
 
