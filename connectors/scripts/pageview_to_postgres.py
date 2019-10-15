@@ -34,8 +34,8 @@ try:
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
     )
 
-    query = "INSERT INTO views_page (document_id, count, produce_time, consume_time) " \
-            "VALUES (%s, %s, %s, %s);"
+    query = "INSERT INTO views_page (document_id, count, produce_time, consume_time, window_end) " \
+            "VALUES (%s, %s, %s, %s, %s);"
 
     connection = psycopg2.connect(user=usr,
                                   password=pwrd,
@@ -51,8 +51,12 @@ try:
         inbound_dict = message.value
 
         print(inbound_dict)
-        cursor.execute(query, (inbound_dict['DOCUMENT_ID'], inbound_dict['COUNT'],
-                               datetime.fromtimestamp(message.timestamp / 1e3), datetime.now()))
+        cursor.execute(query, (inbound_dict['DOCUMENT_ID'],
+                               inbound_dict['COUNT'],
+                               datetime.fromtimestamp(message.timestamp / 1e3),
+                               datetime.now(),
+                               inbound_dict['WIN_END']
+                               ))
         connection.commit()
 
 
