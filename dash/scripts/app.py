@@ -26,15 +26,16 @@ try:
                                   port=db_port,
                                   database=db_type)
     cursor = connection.cursor()
-    query1 = "SELECT window_end, max(count)" \
-             "FROM views_page" \
-             "GROUP BY win_end" \
+    query1 = "SELECT window_end, max(count) " \
+             "FROM views_page " \
+             "GROUP BY win_end " \
              "HAVING document_id='42744'"
     #"SELECT produce_time, count FROM views_page WHERE document_id='42744';"
     cursor.execute(query1)
     rows1 = cursor.fetchall()
 
     [doc_ts_raw, doc_count] = map(list, zip(*rows1))
+    print()
 
     doc_ts = [datetime.fromtimestamp(x / 1e3) for x in doc_ts_raw]
 
