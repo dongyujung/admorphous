@@ -10,8 +10,6 @@ db_type = "postgres"
 usr = config.username
 pwrd = config.password
 
-connection = None
-cursor = None
 
 connection = psycopg2.connect(user=usr,
                               password=pwrd,
