@@ -1,6 +1,6 @@
 import psycopg2
 import config
-import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 # Postgres settings
@@ -23,10 +23,10 @@ rows1 = cursor.fetchall()
 
 [doc_p_ts, doc_c_ts] = map(list, zip(*rows1))
 
-np_doc_p_ts = np.array(doc_p_ts)
-np_doc_c_ts = np.array(doc_c_ts)
+pd_doc_p_ts = pd.Series(doc_p_ts)
+pd_doc_c_ts = pd.Series(doc_c_ts)
 
-doc_dt = (np_doc_c_ts - np_doc_p_ts).microseconds
+doc_dt = (pd_doc_c_ts - pd_doc_p_ts).dt.microseconds
 
 plt.hist(doc_dt, density=True, bins=30)
 plt.savefig('doc_1s.png')
