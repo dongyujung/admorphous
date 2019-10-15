@@ -28,7 +28,7 @@ try:
     cursor = connection.cursor()
     query1 = "SELECT window_end, max(count) " \
              "FROM views_page " \
-             "GROUP BY win_end " \
+             "GROUP BY window_end " \
              "HAVING document_id='42744'"
     #"SELECT produce_time, count FROM views_page WHERE document_id='42744';"
     cursor.execute(query1)
