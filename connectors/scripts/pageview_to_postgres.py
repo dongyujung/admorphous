@@ -23,37 +23,42 @@ db_type = "postgres"
 usr = config.username
 pwrd = config.password
 
-consumer = KafkaConsumer(
-    topic_name,
-    bootstrap_servers=bootstrap_server_list,
-    auto_offset_reset='earliest',
-    enable_auto_commit=True,
-    group_id='my-group',
-    value_deserializer=lambda x: json.loads(x.decode('utf-8'))
-)
 
-query = "INSERT INTO views_page (document_id, count, created_on) VALUES (%s, %s, %s);"
+try:
+    consumer = KafkaConsumer(
+        topic_name,
+        bootstrap_servers=bootstrap_server_list,
+        auto_offset_reset='earliest',
+        enable_auto_commit=True,
+        group_id='my-group',
+        value_deserializer=lambda x: json.loads(x.decode('utf-8'))
+    )
 
-connection = psycopg2.connect(user=usr,
-                              password=pwrd,
-                              host=db_host_ip,
-                              port=db_port,
-                              database=db_type)
+    query = "INSERT INTO views_page (document_id, count, produce_time, consume_time) " \
+            "VALUES (%s, %s, %s, %s);"
 
-cursor = connection.cursor()
+    connection = psycopg2.connect(user=usr,
+                                  password=pwrd,
+                                  host=db_host_ip,
+                                  port=db_port,
+                                  database=db_type)
 
-
-for message in consumer:
-
-    inbound_dict = message.value
-
-    print(inbound_dict)
-    cursor.execute(query, (inbound_dict['DOCUMENT_ID'], inbound_dict['COUNT'],
-                           datetime.now()))
-    connection.commit()
+    cursor = connection.cursor()
 
 
-if (connection):
+    for message in consumer:
+
+        inbound_dict = message.value
+
+        print(inbound_dict)
+        cursor.execute(query, (inbound_dict['DOCUMENT_ID'], inbound_dict['COUNT'],
+                               message.timestamp, datetime.now()))
+        connection.commit()
+
+
+except Exception as e:
+    print(e)
+finally:
     cursor.close()
     connection.close()
     print("PostgreSQL connection is closed \n")
