@@ -35,28 +35,23 @@ try:
     rows1 = cursor.fetchall()
 
     [doc_ts_raw, doc_count] = map(list, zip(*rows1))
-    print()
+    print(doc_ts_raw)
 
     doc_ts = [datetime.fromtimestamp(x / 1e3) for x in doc_ts_raw]
 
     print(doc_ts)
-    print(doc_count)
 
     query2 = "SELECT produce_time, count FROM impressions_ad WHERE ad_id='149541';"
     cursor.execute(query2)
     rows2 = cursor.fetchall()
 
     [ad_ts1, ad_count1] = map(list, zip(*rows2))
-    print(ad_ts1)
-    print(ad_count1)
 
     query3 = "SELECT produce_time, count FROM impressions_ad WHERE ad_id='149539';"
     cursor.execute(query3)
     rows3 = cursor.fetchall()
 
     [ad_ts2, ad_count2] = map(list, zip(*rows3))
-    print(ad_ts2)
-    print(ad_count2)
 
 
 except Exception as e:
