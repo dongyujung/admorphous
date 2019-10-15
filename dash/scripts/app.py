@@ -3,6 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 import plotly.io as pio
+from datetime import datetime
 
 import psycopg2
 import config
@@ -25,15 +26,22 @@ try:
                                   port=db_port,
                                   database=db_type)
     cursor = connection.cursor()
-    query1 = "SELECT created_on, count FROM views_page WHERE document_id='42744';"
+    query1 = "SELECT window_end, max(count)" \
+             "FROM views_page" \
+             "GROUP BY win_end" \
+             "HAVING document_id='42744'"
+    #"SELECT produce_time, count FROM views_page WHERE document_id='42744';"
     cursor.execute(query1)
     rows1 = cursor.fetchall()
 
-    [doc_ts, doc_count] = map(list, zip(*rows1))
+    [doc_ts_raw, doc_count] = map(list, zip(*rows1))
+
+    doc_ts = [datetime.fromtimestamp(x / 1e3) for x in doc_ts_raw]
+
     print(doc_ts)
     print(doc_count)
 
-    query2 = "SELECT created_on, count FROM impressions_ad WHERE ad_id='149541';"
+    query2 = "SELECT produce_time, count FROM impressions_ad WHERE ad_id='149541';"
     cursor.execute(query2)
     rows2 = cursor.fetchall()
 
@@ -41,7 +49,7 @@ try:
     print(ad_ts1)
     print(ad_count1)
 
-    query3 = "SELECT created_on, count FROM impressions_ad WHERE ad_id='149539';"
+    query3 = "SELECT produce_time, count FROM impressions_ad WHERE ad_id='149539';"
     cursor.execute(query3)
     rows3 = cursor.fetchall()
 

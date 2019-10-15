@@ -50,8 +50,10 @@ try:
         inbound_dict = message.value
 
         print(inbound_dict)
-        cursor.execute(query, (inbound_dict['AD_ID'], inbound_dict['COUNT'],
-                               datetime.fromtimestamp(message.timestamp / 1e3), datetime.now()))
+        cursor.execute(query, (inbound_dict['AD_ID'],
+                               inbound_dict['COUNT'],
+                               datetime.fromtimestamp(message.timestamp / 1e3),
+                               datetime.now()))
         connection.commit()
 
 
