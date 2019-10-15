@@ -21,7 +21,8 @@ CREATE TABLE t_views_page_win
     ) AS
 	SELECT
 		document_id,
-		CAST(count(*) AS int) AS count
+		CAST(count(*) AS int) AS count,
+		WINDOWEND() AS win_end
 	FROM pageviews
 	WINDOW TUMBLING (SIZE 10 minutes)
 	GROUP BY document_id;
@@ -29,7 +30,8 @@ CREATE TABLE t_views_page_win
 -- Table to stream
 CREATE STREAM st_views_page_win (
     document_id string,
-    count int
+    count int,
+    win_end bigint
     )
 	with (
 	    KAFKA_TOPIC='t_views_page_win',

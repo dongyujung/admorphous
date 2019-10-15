@@ -20,9 +20,8 @@ consumer = KafkaConsumer(
 
 for message in consumer:
 
-    #inbound_dict = message.value
-    #headers = message.headers
-
+    print(message.value)
+    print(message.timestamp)
 
     print(message)
 
