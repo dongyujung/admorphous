@@ -39,7 +39,6 @@ CREATE TABLE impressions_ad with (
     ) AS
 	SELECT
 		ad_id,
-		max(ROWTIME),
 		cast(count(*) AS int) AS count
 	FROM impressions
 	GROUP BY ad_id;
