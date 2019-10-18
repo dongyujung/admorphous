@@ -24,6 +24,7 @@ usr = config.username
 pwrd = config.password
 
 try:
+    # Kafka Consumer
     consumer = KafkaConsumer(
         topic_name,
         bootstrap_servers=bootstrap_server_list,
@@ -33,28 +34,44 @@ try:
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
     )
 
-    query = "INSERT INTO impressions_ad (ad_id, count, produce_time, consume_time) " \
-            "VALUES (%s, %s, %s, %s);"
-
+    # Connection to Postgres DB
     connection = psycopg2.connect(user=usr,
                                   password=pwrd,
                                   host=db_host_ip,
                                   port=db_port,
                                   database=db_type)
-
     cursor = connection.cursor()
 
-
+    # Receiving and accumulating 20 messages at a time and inserting into db
+    i = 0
+    rows = []
     for message in consumer:
-
+        i += 1
         inbound_dict = message.value
 
-        print(inbound_dict)
-        cursor.execute(query, (inbound_dict['AD_ID'],
+        row = (inbound_dict['AD_ID'],
                                inbound_dict['COUNT'],
                                datetime.fromtimestamp(message.timestamp / 1e3),
-                               datetime.now()))
-        connection.commit()
+                               datetime.now())
+        print(row)
+        rows.append(row)
+
+        if i % 20 == 0:
+            rows_template = ','.join(['%s'] * len(rows))
+            insert_query = 'rows_temp = ','.join(['%s'] * len(rows))
+            insert_query = 'INSERT INTO impressions_ad (ad_id, count, produce_time, consume_time) ' \
+                           'VALUES {};'.format(rows_template)
+            cursor.execute(insert_query, rows)
+            connection.commit()
+            i = 0
+            del rows
+            rows = [] ' \
+                           'VALUES {};'.format(rows_temp)
+            cursor.execute(insert_query, rows)
+            connection.commit()
+            i = 0
+            del rows
+            rows = []
 
 
 except Exception as e:
